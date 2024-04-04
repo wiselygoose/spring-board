@@ -1,3 +1,26 @@
 spring:
   application:
     name: spring-board
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/board
+    username: wiselygoose
+    password: wiselygoose
+    
+mybatis:
+  type-aliases-package: com.wiselygoose.model
+  configuration:
+    map-underscore-to-camel-case: true
+    
+logging:
+  pattern:
+    console: '%d{HH:mm:ss} %clr(%-5p) - %clr(%logger){cyan} : %msg%n'
+  level:
+    root: WARN
+    org:
+      springframework:
+        web: INFO
+    com:
+      wiselygoose:
+        repository: TRACE
