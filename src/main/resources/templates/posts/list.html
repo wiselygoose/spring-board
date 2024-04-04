@@ -6,7 +6,7 @@
 <body>
     <div class="row mb-3 justify-content-center">
     	<div class="col-lg-10">
-    		<a class="btn btn-primary" type="button" th:href="@{/posts/create}">작성</a>
+    		<a class="btn btn-primary" type="button" th:href="@{/posts/create}" id="btnCreate">작성</a>
     	</div>
     </div>
     
@@ -46,10 +46,27 @@
     						</td>
     					</th:block>
     				</tr>
-    			</tbody>
-    			
+    			</tbody>    			
     		</table>
+    		
+    		<nav>
+    			<ul class="pagination pagination-sm justify-content-center">
+    				<li class="page-item" th:if="${pagination.prev}">
+    					<a class="page-link" th:href="@{/posts(page=${pagination.start} - 1)}">Prev</a>
+   					</li>
+   					
+   					<li class="page-item"
+  						th:each="num : ${#numbers.sequence(pagination.start, pagination.end)}"
+						th:classappend="${pagination.criteria.page} == ${num} ? active : null">
+						<a class="page-link" th:href="@{/posts(page=${num})}" th:text="${num}"></a>
+					</li>
+					
+					<li class="page-item" th:if="${pagination.next} and ${pagination.end > 0}">
+						<a class="page-link" th:href="@{/posts(page=${pagination.end} + 1)}">Next</a>
+					</li>
+    			</ul>
+    		</nav>    		
     	</div>
-    </div>
+    </div>    
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wiselygoose.model.Criteria;
 import com.wiselygoose.model.Post;
 import com.wiselygoose.repository.PostMapper;
 
@@ -21,8 +22,12 @@ public class PostService {
 		postMapper.insertPost(post);
 	}
 
-	public List<Post> selectPostsList() {
-		return postMapper.selectPostsList();
+	public List<Post> selectPostsList(Criteria criteria) {
+		return postMapper.selectPostsList(criteria);
+	}
+
+	public int selectPostsCount() {
+		return postMapper.selectPostsCount();
 	}
 
 	public Post selectPostById(Long id) {

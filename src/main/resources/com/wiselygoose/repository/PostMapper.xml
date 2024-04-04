@@ -21,6 +21,15 @@
 			post
 		ORDER BY
 			id DESC
+		LIMIT
+			#{limit}, #{amount}
+	</select>
+	
+	<select id="selectPostsCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			post
 	</select>
 	
 	<select id="selectPostById" resultType="Post">

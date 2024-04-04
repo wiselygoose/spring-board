@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.wiselygoose.model.Criteria;
+import com.wiselygoose.model.Pagination;
 import com.wiselygoose.model.Post;
 import com.wiselygoose.service.PostService;
 
@@ -23,10 +25,14 @@ public class PostController {
 	private final PostService postService;
 
 	@GetMapping
-	public String list(Model model) {
-		List<Post> posts = postService.selectPostsList();
+	public String list(Model model, @ModelAttribute Criteria criteria) {
+		List<Post> posts = postService.selectPostsList(criteria);
 
 		model.addAttribute("posts", posts);
+
+		int total = postService.selectPostsCount();
+
+		model.addAttribute("pagination", new Pagination(total, criteria));
 
 		return "posts/list";
 	}
