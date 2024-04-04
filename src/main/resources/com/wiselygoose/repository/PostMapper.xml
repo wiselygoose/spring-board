@@ -2,6 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wiselygoose.repository.PostMapper">
 
+	<sql id="search">
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<when test="type != null and type != ''">
+					<choose>
+						<when test="'title'.equals( type )">
+							WHERE title LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<when test="'contents'.equals( type )">
+							WHERE contents LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<when test="'writer'.equals( type )">
+							WHERE writer LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+					</choose>
+				</when>
+				<otherwise>
+					WHERE (
+						title LIKE CONCAT('%', #{keyword}, '%')
+						OR contents LIKE CONCAT('%', #{keyword}, '%')
+						OR writer LIKE CONCAT('%', #{keyword}, '%')
+					)
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+
 	<insert id="insertPost" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO post (
 			title, 
@@ -19,6 +46,7 @@
 			*
 		FROM
 			post
+		<include refid="search" />
 		ORDER BY
 			id DESC
 		LIMIT
@@ -30,6 +58,7 @@
 			COUNT(*)
 		FROM 
 			post
+		<include refid="search" />
 	</select>
 	
 	<select id="selectPostById" resultType="Post">

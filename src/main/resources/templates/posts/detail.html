@@ -30,11 +30,11 @@
     		</div>
     		
     		<div class="float-start">
-		    	<a class="btn btn-secondary" th:href="@{/posts(page=${criteria.page})}">목록</a>
+		    	<a class="btn btn-secondary" th:href="@{/posts(page=${criteria.page}, type=${criteria.type}, keyword=${criteria.keyword})}">목록</a>
     		</div>
     		
     		<div class="float-end">
-		    	<a class="btn btn-warning" th:href="@{/posts/{id}/edit(id=${post.id}, page=${criteria.page})}">수정</a>
+		    	<a class="btn btn-warning" th:href="@{/posts/{id}/edit(id=${post.id}, page=${criteria.page}, type=${criteria.type}, keyword=${criteria.keyword})}">수정</a>
 		    	<a class="btn btn-danger" onclick="deletePost();">삭제</a>
     		</div>
     		

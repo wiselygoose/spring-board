@@ -17,14 +17,26 @@ public class Criteria {
 	 */
 	private int amount;
 
+	/**
+	 * 검색한 단어
+	 */
+	private String keyword;
+
+	/**
+	 * 검색 유형
+	 */
+	private String type;
+
 	public Criteria() {
 		this.page = 1;
 		this.amount = 10;
 	}
 
-	public Criteria(int page, int amount) {
+	public Criteria(int page, int amount, String keyword, String type) {
 		this.page = page;
 		this.amount = amount;
+		this.keyword = keyword;
+		this.type = type;
 	}
 
 	public int getLimit() {
