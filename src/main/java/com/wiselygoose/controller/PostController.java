@@ -38,7 +38,7 @@ public class PostController {
 	}
 
 	@GetMapping("/{id}")
-	public String detail(@PathVariable Long id, Model model) {
+	public String detail(@PathVariable Long id, Model model, @ModelAttribute Criteria criteria) {
 		Post post = postService.selectPostById(id);
 
 		model.addAttribute("post", post);
@@ -47,7 +47,7 @@ public class PostController {
 	}
 
 	@GetMapping("/create")
-	public String createform(@ModelAttribute Post post) {
+	public String createform(@ModelAttribute Post post, @ModelAttribute Criteria criteria) {
 		return "posts/form";
 	}
 
@@ -59,7 +59,7 @@ public class PostController {
 	}
 
 	@GetMapping("/{id}/edit")
-	public String updateForm(@PathVariable Long id, Model model) {
+	public String updateForm(@PathVariable Long id, Model model, @ModelAttribute Criteria criteria) {
 		Post post = postService.selectPostById(id);
 
 		model.addAttribute("post", post);

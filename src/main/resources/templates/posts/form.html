@@ -23,7 +23,7 @@
     			</div>
 	    		
 	    		<div class="float-start">
-	    			<a class="btn btn-secondary" type="button" th:href="@{/posts}">목록</a>
+	    			<a class="btn btn-secondary" th:href="@{/posts(page = ${criteria.page})}">목록</a>
 	    		</div>
 	    		<div class="float-end">
 	    			<button th:with="text=${#strings.isEmpty(post.title)} ? '등록' : '수정' " th:text="${text}" class="btn btn-primary" type="submit"></button>

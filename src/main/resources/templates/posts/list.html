@@ -6,7 +6,7 @@
 <body>
     <div class="row mb-3 justify-content-center">
     	<div class="col-lg-10">
-    		<a class="btn btn-primary" type="button" th:href="@{/posts/create}" id="btnCreate">작성</a>
+    		<a class="btn btn-primary" type="button" th:href="@{/posts/create(page=${pagination.criteria.page})}">작성</a>
     	</div>
     </div>
     
@@ -28,7 +28,7 @@
     						<span th:text="${post.id}"></span>
     					</td>
     					<td>
-    						<a th:href="@{/posts/{id}(id = ${post.id})}">
+    						<a th:href="@{/posts/{id}(id=${post.id}, page=${pagination.criteria.page})}">
     							<span th:text="${post.title}"></span>
     						</a>
    						</td>
@@ -41,9 +41,9 @@
     						</td>
     					</th:block>
     					<th:block th:if="${lastModifiedDate != null}">
-    						<td>
-    							<span th:text="${#temporals.format(post.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
-    						</td>
+	   						<td>
+	   							<span th:text="${#temporals.format(post.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+	   						</td>
     					</th:block>
     				</tr>
     			</tbody>    			
@@ -65,8 +65,8 @@
 						<a class="page-link" th:href="@{/posts(page=${pagination.end} + 1)}">Next</a>
 					</li>
     			</ul>
-    		</nav>    		
+    		</nav>
     	</div>
-    </div>    
+    </div>
 </body>
 </html>
