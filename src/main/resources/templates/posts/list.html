@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title},~{::body})}">
+<head>
+    <title>게시판 :: 목록</title>
+</head>
+<body>
+    <div class="row mb-3 justify-content-center">
+    	<div class="col-lg-10">
+    		<a class="btn btn-primary" type="button" th:href="@{/posts/create}">작성</a>
+    	</div>
+    </div>
+    
+    <div class="row justify-content-center">
+    	<div class="col-lg-10">
+    		<table class="table table-hover text-center">
+    			<thead>
+    				<tr>
+    					<th scope="col">번호</th>
+    					<th scope="col">제목</th>
+    					<th scope="col">작성자</th>
+    					<th scope="col">날짜</th>
+    				</tr>
+    			</thead>
+    			
+    			<tbody>
+    				<tr th:each="post : ${posts}">
+    					<td scope="row">
+    						<span th:text="${post.id}"></span>
+    					</td>
+    					<td>
+    						<a th:href="@{/posts/{id}(id = ${post.id})}">
+    							<span th:text="${post.title}"></span>
+    						</a>
+   						</td>
+    					<td>
+    						<span th:text="${post.writer}"></span>
+    					</td>
+    					<th:block th:if="${lastModifiedDate == null}">
+    						<td>
+    							<span th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+    						</td>
+    					</th:block>
+    					<th:block th:if="${lastModifiedDate != null}">
+    						<td>
+    							<span th:text="${#temporals.format(post.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+    						</td>
+    					</th:block>
+    				</tr>
+    			</tbody>
+    			
+    		</table>
+    	</div>
+    </div>
+</body>
+</html>

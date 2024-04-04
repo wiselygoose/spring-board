@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title},~{::body})}">
+<head>
+    <title th:text="|게시판 :: ${post.title}|"></title>
+</head>
+<body>
+    <div class="row mb-3 justify-content-center">
+    	<div class="col-lg-10">
+    		<div class="card mb-3">
+    			<div class="card-body">    			
+    				<div class="row mb-3">
+	   					<h2 th:text="${post.title}"></h2>    				
+    				</div>
+    				
+    				<div class="mb-5">
+    					<span class="text-body-emphasis" th:text="${post.writer}"></span>
+    					<span>&nbsp;&nbsp;</span>
+    					<th:block th:if="${lastModifiedDate == null}">
+    						<span class="text-body-secondary" th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+    					</th:block>
+    					<th:block th:if="${lastModifiedDate != null}">
+    						<span class="text-body-secondary" th:text="${#temporals.format(post.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+    					</th:block>
+    				</div>
+    				
+    				<div class="row" style="min-height: 450px;">
+    					<p th:text="${post.contents}"></p>
+    				</div>
+    			</div>
+    		</div>
+    		
+    		<div class="float-start">
+		    	<a class="btn btn-secondary" th:href="@{/posts}">목록</a>
+    		</div>
+    		
+    		<div class="float-end">
+		    	<a class="btn btn-warning" th:href="@{/posts/{id}/edit(id = ${post.id})}">수정</a>
+		    	<a class="btn btn-danger" onclick="deletePost();">삭제</a>
+    		</div>
+    		
+    	</div>
+    </div>
+    
+        		
+	<form id="deleteForm" method="post" th:action="@{/posts/{id}/delete(id = ${post.id})}">
+	</form>
+    
+    <script>    	
+    	function deletePost() {
+    		if (!confirm("정말 삭제하시겠습니까?")) {
+    			return false;
+    		} else {
+    			$('#deleteForm').submit();
+    		}
+    	}
+    </script>
+</body>
+</html>
